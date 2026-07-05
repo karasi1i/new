@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #888; /* ←灰色 */
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .container {
+    display: flex;
+    gap: 12px;
+    margin-top: 60px;
+  }
+
+  .digit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  button {
+    width: 70px;
+    height: 60px;
+    font-size: 24px;
+    border: none;
+    border-radius: 12px;
+    background: #333;
+    color: white;
+    transition: 0.2s;
+  }
+
+  button:active {
+    transform: scale(0.95);
+    background: #555;
+  }
+
+  .num {
+    font-size: 48px;
+    margin: 12px 0;
+    font-weight: bold;
+  }
+
+  .controls {
+    margin-top: 40px;
+    display: flex;
+    gap: 15px;
+  }
+
+  /* 判定（赤） */
+  .check-btn {
+    width: 120px;
+    height: 50px;
+    font-size: 18px;
+    background: #ff3b30;
+  }
+
+  /* リセット（青） */
+  .reset-btn {
+    width: 120px;
+    height: 50px;
+    font-size: 18px;
+    background: #0a84ff;
+  }
+
+  #result {
+    margin-top: 20px;
+    font-size: 20px;
+  }
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+  <div class="digit">
+    <button onclick="chg(0,1)">▲</button>
+    <div id="d0" class="num">0</div>
+    <button onclick="chg(0,-1)">▼</button>
+  </div>
+
+  <div class="digit">
+    <button onclick="chg(1,1)">▲</button>
+    <div id="d1" class="num">0</div>
+    <button onclick="chg(1,-1)">▼</button>
+  </div>
+
+  <div class="digit">
+    <button onclick="chg(2,1)">▲</button>
+    <div id="d2" class="num">0</div>
+    <button onclick="chg(2,-1)">▼</button>
+  </div>
+
+  <div class="digit">
+    <button onclick="chg(3,1)">▲</button>
+    <div id="d3" class="num">0</div>
+    <button onclick="chg(3,-1)">▼</button>
+  </div>
+</div>
+
+<div class="controls">
+  <button class="check-btn" onclick="check()">判定</button>
+  <button class="reset-btn" onclick="reset()">リセット</button>
+</div>
+
+<p id="result"></p>
+
+<script>
+let d = [0,0,0,0];
+const ans = [1,2,3,4];
+
+function chg(i, n){
+  d[i] = (d[i] + n + 10) % 10;
+  document.getElementById("d"+i).textContent = d[i];
+}
+
+function check(){
+  let ok = true;
+  for(let i=0;i<4;i++){
+    if(d[i] !== ans[i]) ok = false;
+  }
+  document.getElementById("result").textContent = ok ? "正解！" : "違う！";
+}
+
+function reset(){
+  d = [0,0,0,0];
+  for(let i=0;i<4;i++){
+    document.getElementById("d"+i).textContent = 0;
+  }
+  document.getElementById("result").textContent = "";
+}
+</script>
+
+</body>
+</html>
